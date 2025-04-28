@@ -81,10 +81,6 @@ def extract_pdf_text(pdf_file):
         text += page.extract_text()
     return text
 
-# PDF Extraction
-if uploaded_pdf is not None:
-    pdf_text = extract_pdf_text(uploaded_pdf)
-    st.sidebar.text_area("Extracted PDF Text", pdf_text, height=300)
 
 # After extracting PDF text
 if uploaded_pdf is not None:
