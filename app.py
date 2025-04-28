@@ -86,6 +86,29 @@ if uploaded_pdf is not None:
     pdf_text = extract_pdf_text(uploaded_pdf)
     st.sidebar.text_area("Extracted PDF Text", pdf_text, height=300)
 
+# After extracting PDF text
+if uploaded_pdf is not None:
+    pdf_text = extract_pdf_text(uploaded_pdf)
+    st.sidebar.text_area("Extracted PDF Text", pdf_text, height=300)
+
+    if pdf_text.strip():  # If there's some text extracted
+        st.subheader("Solving problems from uploaded PDF...")
+        with st.spinner("Thinking..."):
+            try:
+                math_prompt = (
+                    "You are a helpful and strict math tutor. Only answer math-related questions. "
+                    "Solve all the following problems extracted from a PDF. "
+                    "Format all math properly using LaTeX inside $$...$$."
+                )
+                full_prompt = f"{math_prompt}\n\nExtracted Problems:\n{pdf_text}"
+                response = model.generate_content(full_prompt)
+                reply = response.text
+                st.markdown(reply, unsafe_allow_html=True)
+                save_to_history("Problems from PDF", reply)
+            except Exception as e:
+                st.error(f"Sorry, couldn't solve the problems. Error: {str(e)}")
+
+
 # Clear History
 if clear_button:
     st.session_state.messages = []
