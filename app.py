@@ -114,7 +114,7 @@ if sidebar_option == "Math Chatbot":
                 except Exception as e:
                     reply = f"Sorry, I couldn't solve that. Error: {str(e)}"
 
-            st.markdown(reply)
+            st.markdown(reply, unsafe_allow_html=True)
             st.session_state.messages.append({"role": "assistant", "content": reply})
             save_to_history(user_query, reply)
 
