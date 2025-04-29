@@ -3,4 +3,3 @@ google-generativeai
 numpy
 plotly
 PyPDF2
-PIL
